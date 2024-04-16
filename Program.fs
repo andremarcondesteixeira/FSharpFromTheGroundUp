@@ -68,6 +68,39 @@ Array.iter sayHello commandLineArgs
 
 
 // --------------------------------------
+// NOW USING FORWARD PIPING -------------
+// --------------------------------------
+commandLineArgs |> Array.iter sayHello
+
+
+
+// --------------------------------------
+// AND NOW USING Array.filter -----------
+// --------------------------------------
+let isValidPerson person =
+    not(String.IsNullOrWhiteSpace person)
+
+let isValidPerson_betterVersion person =
+    String.IsNullOrWhiteSpace person |> not
+
+commandLineArgs |> Array.filter isValidPerson |> Array.iter sayHello // this is a pipeline
+
+
+
+// --------------------------------------
+// WE CAN STACK THE PIPES VERTICALLY ----
+// --------------------------------------
+let isAllowedPerson person =
+    person <> "Elon Musk" // <> means "different"
+
+commandLineArgs
+    |> Array.filter isValidPerson
+    |> Array.filter isAllowedPerson
+    |> Array.iter sayHello
+
+
+
+// --------------------------------------
 // PRESS A KEY TO EXIT ------------------
 // --------------------------------------
 Console.ReadKey() |> ignore
