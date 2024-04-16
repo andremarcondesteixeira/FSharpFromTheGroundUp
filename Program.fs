@@ -26,6 +26,7 @@ else
 printfn $"Hello, {person}"
 
 
+
 // --------------------------------------
 // NOT MUTABLE PERSON IS BETTER ---------
 // --------------------------------------
@@ -36,6 +37,34 @@ let notMutablePerson =
         Console.WriteLine("What's your name, bitch?")
         Console.ReadLine()
 printfn $"Hello, {notMutablePerson}"
+
+
+
+// --------------------------------------
+// INDEXED FOR LOOPS --------------------
+// --------------------------------------
+for i in 1..commandLineArgs.Length - 1 do
+    printfn $"Hello, {commandLineArgs.[i]}!"
+
+
+
+// --------------------------------------
+// ITERATOR BASED FOR LOOPS ARE BETTER --
+// --------------------------------------
+for person in commandLineArgs do
+    printfn $"Hello, {person}!"
+
+
+
+// --------------------------------------
+// DOING LOOPS USING Array.iter ---------
+// --------------------------------------
+let sayHello person =
+    printfn $"Array.iter sends you hello, {person}!"
+
+Array.iter sayHello commandLineArgs
+// Array.iter is a High-Order Function, i.e, it is a function that receives another function as an argument
+
 
 
 // --------------------------------------
