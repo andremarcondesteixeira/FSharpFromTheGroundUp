@@ -63,7 +63,7 @@ let sayHello person =
     printfn $"Array.iter sends you hello, {person}!"
 
 Array.iter sayHello commandLineArgs
-// Array.iter is a High-Order Function, i.e, it is a function that receives another function as an argument
+// Array.iter is a "Higher Order Function", i.e, it is a function that receives another function as an argument
 
 
 
