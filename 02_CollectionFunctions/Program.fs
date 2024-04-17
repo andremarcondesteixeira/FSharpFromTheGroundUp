@@ -17,8 +17,7 @@ let meanScore (row : string) =
     let pieces = row.Split("\t")
     let studentName = pieces.[0]
     let studentId = pieces.[1]
-    let scores = pieces.[2..] |> Array.map float
-    let meanScore = Math.Round(Array.average scores, 2)
+    let meanScore = pieces.[2..] |> Array.averageBy float
     (studentName, studentId, meanScore)
 
 let summarize filePath =
@@ -30,16 +29,9 @@ let summarize filePath =
     lines
     |> Array.skip 1
     |> Array.map meanScore
-    |> Array.map (
-        fun (studentName, studentId, meanScore) -> (
-            studentName,
-            studentId,
-            meanScore.ToString("00.00")
-        )
-    )
     |> Array.iter (
         fun (studentName, studentId, meanScore) ->
-            printfn $"{studentId}: {meanScore} - {studentName}"
+            printfn $"{studentId}: %0.2f{meanScore} - {studentName}"
     )
 
 summarize filePath
