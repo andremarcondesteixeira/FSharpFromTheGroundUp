@@ -51,6 +51,7 @@ let summarize filePath =
     lines
     |> Array.skip 1
     |> Array.map StudentScoresSummary.fromString
+    |> Array.sortByDescending (fun summary -> summary.MeanScore)
     |> Array.iter (
         fun summary ->
             // the %0.6f format specifier has the following format:
