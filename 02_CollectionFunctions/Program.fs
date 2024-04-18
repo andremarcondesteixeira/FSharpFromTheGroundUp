@@ -40,6 +40,16 @@ module StudentScoresSummary =
             MinScore = minScore
             MaxScore = maxScore
         }
+
+    let printSummary (summary: StudentScoresSummary) =
+        // the %0.6f format specifier has the following format:
+        // %<0 if want to pad left><total length of number including numbers after the point>.<amount of numbers after the point>
+        printfn "%s: mean: %06.2f, min: %06.2f, max: %06.2f - %s"
+            summary.Id
+            summary.MeanScore
+            summary.MinScore
+            summary.MaxScore
+            summary.Name
     
 
 let summarize filePath =
@@ -52,17 +62,7 @@ let summarize filePath =
     |> Array.skip 1
     |> Array.map StudentScoresSummary.fromString
     |> Array.sortByDescending (fun summary -> summary.MeanScore)
-    |> Array.iter (
-        fun summary ->
-            // the %0.6f format specifier has the following format:
-            // %<0 if want to pad left><total length of number including numbers after the point>.<amount of numbers after the point>
-            printfn "%s: mean: %06.2f, min: %06.2f, max: %06.2f - %s"
-                summary.Id
-                summary.MeanScore
-                summary.MinScore
-                summary.MaxScore
-                summary.Name
-    )
+    |> Array.iter StudentScoresSummary.printSummary
 
 summarize filePath
 
