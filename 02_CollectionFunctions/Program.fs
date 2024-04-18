@@ -13,7 +13,6 @@ if not (File.Exists filePath) then
     printfn $"Provided file does not exist: {filePath}"
     exit 1
 
-
 // this is a record type
 type StudentScoresSummary = {
     Name: string
