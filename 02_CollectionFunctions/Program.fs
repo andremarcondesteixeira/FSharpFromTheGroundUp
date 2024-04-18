@@ -1,5 +1,6 @@
 ﻿open System
 open System.IO
+open System.Globalization
 
 let commandLineArgs = Environment.GetCommandLineArgs () // () is unit
 
@@ -12,6 +13,18 @@ let filePath = commandLineArgs.[1]
 if not (File.Exists filePath) then
     printfn $"Provided file does not exist: {filePath}"
     exit 1
+
+module Float =
+    let tryFromString (s: string): float option =
+        let isNumber, number = Double.TryParse(s, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture)
+        
+        if isNumber then
+            Some(number)
+        else
+            None
+
+    let fromStringOr (defaultValue: float) (s: string) : float =
+        s |> tryFromString |> Option.defaultValue defaultValue
 
 // this is a record type
 type StudentScoresSummary = {
@@ -27,7 +40,7 @@ module StudentScoresSummary =
         let pieces = s.Split("\t")
         let name = pieces.[0]
         let id = pieces.[1]
-        let scores = Array.map float pieces[2..]
+        let scores = pieces[2..] |> Array.map (Float.fromStringOr 50)
         let meanScore = Array.average scores
         let minScore = Array.min scores
         let maxScore = Array.max scores
